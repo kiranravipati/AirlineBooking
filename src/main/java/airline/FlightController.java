@@ -1,8 +1,10 @@
 package airline;
 
+import airline.model.Flight;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -17,7 +19,9 @@ public class FlightController {
     }
 
     @RequestMapping("/")
-    public String welcomeMessage() {
+    public String welcomeMessage(Model model) {
+        Flight flight = new Flight("IA1234", "Hyderabad", "Pune");
+        model.addAttribute(flight);
         return "flightSearch";
     }
 
