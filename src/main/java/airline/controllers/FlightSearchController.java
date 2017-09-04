@@ -41,10 +41,10 @@ public class FlightSearchController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model) throws ParseException {
-        System.out.println(searchCriteria.getDepartureDate());
         flightSearchService = new FlightSearchService();
         List<Flight> matchedFlights = flightSearchService.search(searchCriteria);
         model.addAttribute("searchResults", matchedFlights);
+
         return "flightsView";
     }
 }

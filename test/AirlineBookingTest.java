@@ -1,5 +1,3 @@
-
-
 import airline.models.Flight;
 import airline.models.SearchCriteria;
 import airline.repositories.FlightRepository;
@@ -28,10 +26,24 @@ public class AirlineBookingTest {
         Assert.assertEquals(4, flightRepository.getFlights().size());
     }
 
+    @Test
+    public void shouldRetrieveFlightsBasedOnSourceAndDestinationIfDepartureDateIsNotGiven() throws ParseException {
+        SearchCriteria searchCriteria = new SearchCriteria("HYD", "BLR", 2, "");
+        List<Flight> searchResults = flightSearchService.search(searchCriteria);
+        Assert.assertEquals(2, searchResults.size());
+    }
 
     @Test
     public void shouldReturnFlightsFromHydToBlr() throws ParseException {
-        List<Flight> searchResults = flightSearchService.search(new SearchCriteria("HYD", "BLR", 7, "04-09-2017"));
+        SearchCriteria searchCriteria = new SearchCriteria("HYD", "BLR", 7, "2017-09-04");
+        List<Flight> searchResults = flightSearchService.search(searchCriteria);
         Assert.assertEquals(1, searchResults.size());
+    }
+
+    @Test
+    public void shouldReturnFlightsIfPassengersCountNotEnteredTakingDefaultValue() throws ParseException {
+        SearchCriteria searchCriteria = new SearchCriteria("HYD", "BLR", 0, "2017-09-04");
+        List<Flight> searchResults = flightSearchService.search(searchCriteria);
+        Assert.assertEquals(2, searchResults.size());
     }
 }

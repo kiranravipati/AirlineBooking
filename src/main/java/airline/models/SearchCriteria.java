@@ -8,27 +8,17 @@ public class SearchCriteria {
     private int numberOfPassengers;
     private String departureDate;
 
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public void setNumberOfPassengers(int numberOfPassengers) {
-        this.numberOfPassengers = numberOfPassengers;
-    }
+    private static final int DEFAULT_PASSENGERS = 1;
 
     public SearchCriteria() {
-        this.numberOfPassengers = 1;
+        this.numberOfPassengers = DEFAULT_PASSENGERS;
     }
 
     public SearchCriteria(String source, String destination, int numberOfPassengers, String departureDate) {
         this.source = source;
         this.destination = destination;
-        this.numberOfPassengers = numberOfPassengers;
         this.departureDate = departureDate;
+        this.numberOfPassengers = numberOfPassengers;
     }
 
     public String getSource() {
@@ -47,8 +37,24 @@ public class SearchCriteria {
         return departureDate;
     }
 
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public void setNumberOfPassengers(int numberOfPassengers) {
+        this.numberOfPassengers = numberOfPassengers;
+    }
+
     public void setDepartureDate(String departureDate) {
-        //System.out.println("departureDate" + departureDate);
         this.departureDate = departureDate;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Source %s\nDestination %s\n passengers %d departure date %s", source, destination, numberOfPassengers, departureDate);
     }
 }

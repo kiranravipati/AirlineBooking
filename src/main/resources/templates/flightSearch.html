@@ -20,6 +20,7 @@
                     th:text="${city.name}">
             </option>
         </select><br/>
+
         <p th:text="'Destination: '"/>
         <select class="form-control col-md-3" id="destination" name="destination" th:field="*{destination}">
             <option value="">Select Destination</option>
@@ -31,10 +32,10 @@
         </select><br/>
 
         <p th:text="'Number of passengers: '"/>
+        <input type="number" name="numberOfPassengers" min="1" th:field="*{numberOfPassengers}"/><br/><br/>
 
-        <input type="number" name="numberOfPassengers" min="1" th:field="*{numberOfPassengers}"/>
-
-        <input type="date" name="departureDate" th:field="*{departureDate}"/>
+        <p th:text="'Departure Date: '"/>
+        <input type="date" name="departureDate" th:field="*{departureDate}"/><br/><br/>
 
         <input type="submit" value="Submit"/>
     </form>
