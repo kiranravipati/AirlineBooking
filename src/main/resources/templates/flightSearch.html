@@ -33,6 +33,9 @@
         <p th:text="'Number of passengers: '"/>
 
         <input type="number" name="numberOfPassengers" min="1" th:field="*{numberOfPassengers}"/>
+
+        <input type="date" name="departureDate" th:field="*{departureDate}"/>
+
         <input type="submit" value="Submit"/>
     </form>
 </div>

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -39,7 +40,8 @@ public class FlightSearchController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model) {
+    public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model) throws ParseException {
+        System.out.println(searchCriteria.getDepartureDate());
         flightSearchService = new FlightSearchService();
         List<Flight> matchedFlights = flightSearchService.search(searchCriteria);
         model.addAttribute("searchResults", matchedFlights);

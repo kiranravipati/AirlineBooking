@@ -1,23 +1,26 @@
 package airline.models;
 
+import java.util.Date;
+
 public class Flight {
     private String flightNumber;
     private String source;
     private String destination;
     private int totalSeats;
-
-    private FlightDetails flightDetails;
+    private int availableSeats;
+    private Date departureDate;
 
     public Flight() {
 
     }
 
-    public Flight(String flightNumber, String source, String destination, int totalSeats, FlightDetails flightDetails) {
+    public Flight(String flightNumber, String source, String destination, int totalSeats, int availableSeats, Date departureDate) {
         this.flightNumber = flightNumber;
         this.source = source;
         this.destination = destination;
         this.totalSeats = totalSeats;
-        this.flightDetails = flightDetails;
+        this.availableSeats = availableSeats;
+        this.departureDate = departureDate;
     }
 
     public String getFlightNumber() {
@@ -52,11 +55,19 @@ public class Flight {
         this.totalSeats = totalSeats;
     }
 
-    public FlightDetails getFlightDetails() {
-        return flightDetails;
+    public int getAvailableSeats() {
+        return availableSeats;
     }
 
-    public void setFlightDetails(FlightDetails flightDetails) {
-        this.flightDetails = flightDetails;
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
+    public Date getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
     }
 }
