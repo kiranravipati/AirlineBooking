@@ -1,9 +1,9 @@
-package airline.services;
+package airline.models;
 
 public class SearchCriteria {
-    public String source;
-    public String destination;
-    public int numberOfPassengers;
+    private String source;
+    private String destination;
+    private int numberOfPassengers;
 
     public void setSource(String source) {
         this.source = source;
@@ -18,13 +18,12 @@ public class SearchCriteria {
     }
 
     public SearchCriteria() {
-
+        this.numberOfPassengers = 1;
     }
 
     public SearchCriteria(String source, String destination, int numberOfPassengers) {
         this.source = source;
         this.destination = destination;
-        this.numberOfPassengers = numberOfPassengers;
     }
 
     public String getSource() {

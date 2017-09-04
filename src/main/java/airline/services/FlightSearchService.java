@@ -1,7 +1,9 @@
 package airline.services;
 
 import airline.models.Flight;
+import airline.models.SearchCriteria;
 import airline.repositories.FlightRepository;
+import java.util.stream.Collectors;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 
@@ -13,16 +15,20 @@ public class FlightSearchService {
     //@Autowired
     FlightRepository flightRepository;
 
-    public List<Flight> search(String source, String destination) {
+    public List<Flight> search(SearchCriteria searchCriteria) {
         flightRepository = FlightRepository.getSharedInstance();
-        System.out.println("Flights count "+ flightRepository.getFlights().size());
-        List<Flight> availableFlights = new ArrayList<Flight>();
 
-        for (Flight flight : flightRepository.getFlights()) {
-            if (source.equals(flight.getSource()) && destination.equals(flight.getDestination())) {
-                availableFlights.add(flight);
-            }
+        if (searchCriteria.getNumberOfPassengers() == 0) {
+            searchCriteria.setNumberOfPassengers(1);
         }
-        return availableFlights;
+
+        List<Flight> flights = flightRepository.getFlights();
+
+        return flights.stream()
+                .filter(x -> x.getSource().equals(searchCriteria.getSource()))
+                .filter(x -> x.getDestination().equals(searchCriteria.getDestination()))
+                .filter(x -> x.getFlightDetails().getAvailableSeats() >= searchCriteria.getNumberOfPassengers())
+                .collect(Collectors.toList());
     }
 }
+
