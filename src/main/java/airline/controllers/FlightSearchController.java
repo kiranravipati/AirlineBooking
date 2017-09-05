@@ -23,9 +23,9 @@ import java.util.*;
 
 @Controller
 public class FlightSearchController {
+    public enum ServiceClass { ECONOMY, BUSINESS, FIRST };
     //@Autowired
     CityRepository cityRepository;
-    //@Autowired
     FlightSearchService flightSearchService;
 
     @RequestMapping(value = "/airlineTicketing", method = RequestMethod.GET)
@@ -36,11 +36,16 @@ public class FlightSearchController {
         model.addAttribute("cities", cities);
         model.addAttribute("searchCriteria", new SearchCriteria());
 
+        List<ServiceClass> serviceClassList = Arrays.asList(ServiceClass.values());
+        System.out.println(serviceClassList);
+        model.addAttribute("serviceClassList", serviceClassList);
+
         return "flightSearch";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model) throws ParseException {
+        System.out.println(searchCriteria);
         flightSearchService = new FlightSearchService();
         List<Flight> matchedFlights = flightSearchService.search(searchCriteria);
         model.addAttribute("searchResults", matchedFlights);

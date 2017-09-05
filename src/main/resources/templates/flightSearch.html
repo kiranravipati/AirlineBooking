@@ -31,11 +31,21 @@
             </option>
         </select><br/>
 
+        <p th:text="'Travel Class: '"/>
+        <select class="form-control col-md-3" id="travelClass" name="travelClass" th:required="required" th:field="*{travelClass}">
+            <option value="">Select Class</option>
+            <option th:each="value : ${serviceClassList}"
+                    th:value="${value}"
+                    th:text="${value}"
+            >
+            </option>
+        </select><br/>
+
         <p th:text="'Number of passengers: '"/>
-        <input type="number" name="numberOfPassengers" min="1" th:field="*{numberOfPassengers}"/><br/><br/>
+        <input type="number" name="seatsRequested" min="1" th:field="*{seatsRequested}"/><br/><br/>
 
         <p th:text="'Departure Date: '"/>
-        <input type="date" name="departureDate" th:field="*{departureDateString}"/><br/><br/>
+        <input type="date" name="departureDateString" th:field="*{departureDateString}"/><br/><br/>
 
         <input type="submit" value="Submit"/>
     </form>
