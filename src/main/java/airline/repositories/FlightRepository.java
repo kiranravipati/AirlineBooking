@@ -1,9 +1,9 @@
 package airline.repositories;
 
 import airline.models.Flight;
-
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 //import org.springframework.stereotype.Service;
 
@@ -22,12 +22,10 @@ public class FlightRepository {
     }
 
     public void createDefaultFlights() {
-        Date departureDate = new Date();
-
-        Flight flight1 = new Flight("F1", "HYD", "BLR", 50, 20, departureDate);
-        Flight flight2 = new Flight("F2", "HYD", "PUN", 40, 10, departureDate);
-        Flight flight3 = new Flight("F3", "BLR", "PUN", 60, 5, departureDate);
-        Flight flight4 = new Flight("F4", "HYD", "BLR", 45, 2, departureDate);
+        Flight flight1 = new Flight("F1", "HYD", "BLR", 50, 20, LocalDate.now());
+        Flight flight2 = new Flight("F2", "HYD", "PUN", 40, 10, LocalDate.of(2017, Month.SEPTEMBER,7));
+        Flight flight3 = new Flight("F3", "BLR", "PUN", 60, 5, LocalDate.of(2017, Month.SEPTEMBER,6));
+        Flight flight4 = new Flight("F4", "HYD", "BLR", 45, 2, LocalDate.of(2017, Month.SEPTEMBER,5));
 
         flights.add(flight1);
         flights.add(flight2);

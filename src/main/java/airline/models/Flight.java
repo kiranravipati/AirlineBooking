@@ -1,6 +1,6 @@
 package airline.models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Flight {
     private String flightNumber;
@@ -8,13 +8,13 @@ public class Flight {
     private String destination;
     private int totalSeats;
     private int availableSeats;
-    private Date departureDate;
+    private LocalDate departureDate;
 
     public Flight() {
 
     }
 
-    public Flight(String flightNumber, String source, String destination, int totalSeats, int availableSeats, Date departureDate) {
+    public Flight(String flightNumber, String source, String destination, int totalSeats, int availableSeats, LocalDate departureDate) {
         this.flightNumber = flightNumber;
         this.source = source;
         this.destination = destination;
@@ -63,11 +63,11 @@ public class Flight {
         this.availableSeats = availableSeats;
     }
 
-    public Date getDepartureDate() {
+    public LocalDate getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
 }
