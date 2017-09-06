@@ -1,41 +1,34 @@
 package airline.models;
 
-import airline.repositories.CarrierRepository;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Flight {
     private String flightNumber;
     private String source;
     private String destination;
     private LocalDate departureDate;
-    private CarrierType carrierType;
-    private HashMap<TravelClass,Integer> mapOfSeatsPerClass;
+    private Carrier carrier;
 
     public Flight() {
     }
 
-    public Flight(String flightNumber, String source, String destination, LocalDate departureDate, CarrierType carrierType) {
+    public Flight(String flightNumber, String source, String destination, LocalDate departureDate, Carrier carrier) {
         this.flightNumber = flightNumber;
         this.source = source;
         this.destination = destination;
         this.departureDate = departureDate;
-        this.carrierType = carrierType;
-        this.mapOfSeatsPerClass = new HashMap<TravelClass,Integer>();
-
-        populateMapOfSeatsPerClassBasedOnCarrier();
+        this.carrier = carrier;
     }
 
-    public void populateMapOfSeatsPerClassBasedOnCarrier() {
-        CarrierRepository carrierRepository = CarrierRepository.getSharedInstance();
-        Carrier carrier = carrierRepository.getCarriers().get(carrierType);
-        Map<TravelClass, Integer> mapOfSeatsPerClassForCarrier = carrier.getMapOfSeatsPerClass();
-
-        for (Map.Entry <TravelClass, Integer> travelClassEntry : mapOfSeatsPerClassForCarrier.entrySet()) {
-            mapOfSeatsPerClass.put(travelClassEntry.getKey(), travelClassEntry.getValue());
-        }
-    }
+//    public void populateMapOfSeatsPerClassBasedOnCarrier() {
+//        CarrierRepository carrierRepository = CarrierRepository.getSharedInstance();
+//        Carrier carrier = carrierRepository.getCarriers().get(carrierType);
+//        Map<TravelClass, Integer> mapOfSeatsPerClassForCarrier = carrier.getMapOfSeatsPerClass();
+//
+//        for (Map.Entry <TravelClass, Integer> travelClassEntry : mapOfSeatsPerClassForCarrier.entrySet()) {
+//            mapOfAvailableSeatsPerClass.put(travelClassEntry.getKey(), travelClassEntry.getValue());
+//        }
+//    }
 
     public String getFlightNumber() {
         return flightNumber;
@@ -69,19 +62,7 @@ public class Flight {
         this.departureDate = departureDate;
     }
 
-    public CarrierType getCarrierType() {
-        return carrierType;
-    }
-
-    public void setCarrierType(CarrierType carrierType) {
-        this.carrierType = carrierType;
-    }
-
-    public HashMap<TravelClass, Integer> getMapOfSeatsPerClass() {
-        return mapOfSeatsPerClass;
-    }
-
-    public void setMapOfSeatsPerClass(HashMap<TravelClass, Integer> mapOfSeatsPerClass) {
-        this.mapOfSeatsPerClass = mapOfSeatsPerClass;
+    public Carrier getCarrier() {
+        return carrier;
     }
 }

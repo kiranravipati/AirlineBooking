@@ -6,7 +6,6 @@ import airline.models.TravelClass;
 import airline.repositories.FlightRepository;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class FlightSearchService {
         return  flights.stream()
                 .filter(x -> x.getSource().equals(searchCriteria.getSource()))
                 .filter(x -> x.getDestination().equals(searchCriteria.getDestination()))
-                .filter(x -> seatsAvailableForTravelClass(x, searchCriteria.getTravelClass(), searchCriteria.getSeatsRequested()))
+                .filter(x -> isSeatAvailableForTravelClass(x, searchCriteria.getTravelClass(), searchCriteria.getSeatsRequested()))
                 .filter(x -> compareDates(x.getDepartureDate(), searchCriteria.getDepartureDate()))
                 .collect(Collectors.toList());
     }
@@ -31,8 +30,8 @@ public class FlightSearchService {
         return (searchCriteriaDate == null) ? true : flightDepartureDate.equals(searchCriteriaDate);
     }
 
-    private boolean seatsAvailableForTravelClass(Flight flight, TravelClass travelClass, int seatsRequested) {
-        int availableSeats = flight.getMapOfSeatsPerClass().get(travelClass);
+    private boolean isSeatAvailableForTravelClass(Flight flight, TravelClass travelClass, int seatsRequested) {
+        int availableSeats = flight.getCarrier().getNoOfSeatsForTravelClass(travelClass);
         if (availableSeats >= seatsRequested)
             return true;
         else

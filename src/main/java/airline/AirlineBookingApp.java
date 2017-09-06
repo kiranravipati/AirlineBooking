@@ -19,7 +19,6 @@ public class AirlineBookingApp {
 
         CarrierRepository carrierRepository = CarrierRepository.getSharedInstance();
         carrierRepository.createDefaultCarriers();
-        carrierRepository.printCarriers();
 
         FlightRepository flightRepository = FlightRepository.getSharedInstance();
         flightRepository.createDefaultFlights();

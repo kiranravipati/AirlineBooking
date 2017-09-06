@@ -3,11 +3,13 @@ package airline.controllers;
 import airline.models.City;
 import airline.models.Flight;
 import airline.models.SearchCriteria;
+import airline.models.TravelClass;
 import airline.services.FlightSearchService;
 import airline.repositories.CityRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.*;
@@ -18,7 +20,6 @@ import java.util.*;
 
 @Controller
 public class FlightSearchController {
-    public enum ServiceClass { ECONOMY, BUSINESS, FIRST };
     //@Autowired
     CityRepository cityRepository;
     FlightSearchService flightSearchService;
@@ -27,17 +28,16 @@ public class FlightSearchController {
     public String getCities(Model model) {
         CityRepository cityRepository = CityRepository.getSharedInstance();
         List<City> cities = cityRepository.getCities();
-        List<ServiceClass> serviceClassList = Arrays.asList(ServiceClass.values());
 
         model.addAttribute("cities", cities);
         model.addAttribute("searchCriteria", new SearchCriteria());
-        model.addAttribute("serviceClassList", serviceClassList);
+        model.addAttribute("serviceClassList", TravelClass.values());
 
         return "flightSearch";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model) throws ParseException {
+    public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model, BindingResult bindingResult) throws ParseException {
         flightSearchService = new FlightSearchService();
         List<Flight> matchedFlights = flightSearchService.search(searchCriteria);
 

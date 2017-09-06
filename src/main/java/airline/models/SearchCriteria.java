@@ -1,6 +1,5 @@
 package airline.models;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import java.time.LocalDate;
 
 public class SearchCriteria {
@@ -9,7 +8,6 @@ public class SearchCriteria {
     private int seatsRequested;
     private String departureDateString;
     private LocalDate departureDate;
-    @NotEmpty(message = "{class required}")
     private TravelClass travelClass;
 
     private static final int DEFAULT_PASSENGERS = 1;

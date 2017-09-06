@@ -13,7 +13,7 @@
     <b><center th:text="'Welcome to TWAirline'"></center></b><hr/>
     <form method="post" action="#" th:action="@{/search}" th:object="${searchCriteria}">
         <p th:text="'Source: '"/>
-        <select title="Source" class="form-control col-md-3" id="source" name="source" th:field="*{source}">
+        <select title="Source" class="form-control col-md-3" id="source" name="source" th:required="required" th:field="*{source}">
             <option value="">Select Source</option>
             <option th:each="city : ${cities}"
                     th:value="${city.id}"
@@ -22,7 +22,7 @@
         </select><br/>
 
         <p th:text="'Destination: '"/>
-        <select class="form-control col-md-3" id="destination" name="destination" th:field="*{destination}">
+        <select class="form-control col-md-3" id="destination" name="destination" th:required="required" th:field="*{destination}">
             <option value="">Select Destination</option>
             <option th:each="city : ${cities}"
                     th:value="${city.id}"
@@ -42,7 +42,7 @@
         </select><br/>
 
         <p th:text="'Number of passengers: '"/>
-        <input type="number" name="seatsRequested" min="1" th:field="*{seatsRequested}"/><br/><br/>
+        <input type="text" name="seatsRequested" th:field="*{seatsRequested}"/><br/><br/>
 
         <p th:text="'Departure Date: '"/>
         <input type="date" name="departureDateString" th:field="*{departureDateString}"/><br/><br/>

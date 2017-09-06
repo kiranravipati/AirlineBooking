@@ -22,4 +22,8 @@ public class Carrier {
     public Map<TravelClass, Integer> getMapOfSeatsPerClass() {
         return mapOfSeatsPerClass;
     }
+
+    public Integer getNoOfSeatsForTravelClass(TravelClass travelClass) {
+        return mapOfSeatsPerClass.get(travelClass);
+    }
 }
