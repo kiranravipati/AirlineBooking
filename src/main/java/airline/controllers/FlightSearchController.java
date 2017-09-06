@@ -27,12 +27,10 @@ public class FlightSearchController {
     public String getCities(Model model) {
         CityRepository cityRepository = CityRepository.getSharedInstance();
         List<City> cities = cityRepository.getCities();
+        List<ServiceClass> serviceClassList = Arrays.asList(ServiceClass.values());
 
         model.addAttribute("cities", cities);
         model.addAttribute("searchCriteria", new SearchCriteria());
-
-        List<ServiceClass> serviceClassList = Arrays.asList(ServiceClass.values());
-        System.out.println(serviceClassList);
         model.addAttribute("serviceClassList", serviceClassList);
 
         return "flightSearch";
@@ -40,9 +38,9 @@ public class FlightSearchController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model) throws ParseException {
-        System.out.println(searchCriteria);
         flightSearchService = new FlightSearchService();
         List<Flight> matchedFlights = flightSearchService.search(searchCriteria);
+
         model.addAttribute("searchResults", matchedFlights);
 
         return "flightsView";

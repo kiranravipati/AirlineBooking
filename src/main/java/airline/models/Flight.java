@@ -1,7 +1,6 @@
 package airline.models;
 
 import airline.repositories.CarrierRepository;
-
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,37 +9,30 @@ public class Flight {
     private String flightNumber;
     private String source;
     private String destination;
-    private int totalSeats;
-    private int availableSeats;
     private LocalDate departureDate;
     private CarrierType carrierType;
-    private HashMap<TravelClass,Integer> mapOfSeatsPerClassForFlight;
+    private HashMap<TravelClass,Integer> mapOfSeatsPerClass;
 
     public Flight() {
-
     }
 
-    public Flight(String flightNumber, String source, String destination, int totalSeats, int availableSeats, LocalDate departureDate, CarrierType carrierType) {
+    public Flight(String flightNumber, String source, String destination, LocalDate departureDate, CarrierType carrierType) {
         this.flightNumber = flightNumber;
         this.source = source;
         this.destination = destination;
-        this.totalSeats = totalSeats;
-        this.availableSeats = availableSeats;
         this.departureDate = departureDate;
         this.carrierType = carrierType;
-        this.mapOfSeatsPerClassForFlight = new HashMap<TravelClass,Integer>();
+        this.mapOfSeatsPerClass = new HashMap<TravelClass,Integer>();
 
         populateMapOfSeatsPerClassBasedOnCarrier();
     }
 
     public void populateMapOfSeatsPerClassBasedOnCarrier() {
         CarrierRepository carrierRepository = CarrierRepository.getSharedInstance();
-
         HashMap<TravelClass, Integer> mapOfSeatsPerClassForCarrier = carrierRepository.getCarriers().get(carrierType);
-        System.out.println(mapOfSeatsPerClassForCarrier.size());
 
         for (Map.Entry <TravelClass, Integer> travelClassEntry : mapOfSeatsPerClassForCarrier.entrySet()) {
-            mapOfSeatsPerClassForFlight.put(travelClassEntry.getKey(), travelClassEntry.getValue());
+            mapOfSeatsPerClass.put(travelClassEntry.getKey(), travelClassEntry.getValue());
         }
     }
 
@@ -68,22 +60,6 @@ public class Flight {
         this.destination = destination;
     }
 
-    public int getTotalSeats() {
-        return totalSeats;
-    }
-
-    public void setTotalSeats(int totalSeats) {
-        this.totalSeats = totalSeats;
-    }
-
-    public int getAvailableSeats() {
-        return availableSeats;
-    }
-
-    public void setAvailableSeats(int availableSeats) {
-        this.availableSeats = availableSeats;
-    }
-
     public LocalDate getDepartureDate() {
         return departureDate;
     }
@@ -101,10 +77,10 @@ public class Flight {
     }
 
     public HashMap<TravelClass, Integer> getMapOfSeatsPerClass() {
-        return mapOfSeatsPerClassForFlight;
+        return mapOfSeatsPerClass;
     }
 
-    public void setMapOfSeatsPerClassForFlight(HashMap<TravelClass, Integer> mapOfSeatsPerClass) {
-        this.mapOfSeatsPerClassForFlight = mapOfSeatsPerClassForFlight;
+    public void setMapOfSeatsPerClass(HashMap<TravelClass, Integer> mapOfSeatsPerClass) {
+        this.mapOfSeatsPerClass = mapOfSeatsPerClass;
     }
 }

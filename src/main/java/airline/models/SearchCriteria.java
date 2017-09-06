@@ -1,12 +1,9 @@
 package airline.models;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
 import java.time.LocalDate;
 
 public class SearchCriteria {
-    public enum TravelClass { ECONOMY, BUSINESS, FIRST };
-
     private String source;
     private String destination;
     private int seatsRequested;

@@ -23,10 +23,10 @@ public class FlightRepository {
     }
 
     public void createDefaultFlights() {
-        Flight flight1 = new Flight("F1", "HYD", "BLR", 50, 20, LocalDate.now(), CarrierType.BOEING777);
-        Flight flight2 = new Flight("F2", "HYD", "PUN", 40, 10, LocalDate.of(2017, Month.SEPTEMBER,7), CarrierType.AIRBUS319V2);
-        Flight flight3 = new Flight("F3", "BLR", "PUN", 60, 5, LocalDate.of(2017, Month.SEPTEMBER,6), CarrierType.BOEING777);
-        Flight flight4 = new Flight("F4", "HYD", "BLR", 45, 2, LocalDate.of(2017, Month.SEPTEMBER,5), CarrierType.AIRBUS321);
+        Flight flight1 = new Flight("F1", "HYD", "BLR", LocalDate.now(), CarrierType.BOEING777);
+        Flight flight2 = new Flight("F2", "HYD", "PUN", LocalDate.of(2017, Month.SEPTEMBER,7), CarrierType.AIRBUS319V2);
+        Flight flight3 = new Flight("F3", "BLR", "PUN", LocalDate.of(2017, Month.SEPTEMBER,6), CarrierType.BOEING777);
+        Flight flight4 = new Flight("F4", "HYD", "BLR", LocalDate.of(2017, Month.SEPTEMBER,6), CarrierType.AIRBUS321);
 
         flights.add(flight1);
         flights.add(flight2);
