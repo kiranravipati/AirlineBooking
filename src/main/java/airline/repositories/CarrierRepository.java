@@ -1,5 +1,6 @@
 package airline.repositories;
 
+import airline.models.Carrier;
 import airline.models.CarrierType;
 import airline.models.TravelClass;
 import java.util.HashMap;
@@ -7,11 +8,11 @@ import java.util.Map;
 
 public class CarrierRepository {
     private static final CarrierRepository sharedInstance = new CarrierRepository();
+    private Map<CarrierType, Carrier> carriers;
 
-    private Map<CarrierType, HashMap<TravelClass, Integer>> carriers;
 
     private CarrierRepository() {
-        carriers = new HashMap<CarrierType, HashMap<TravelClass, Integer>>();
+        carriers = new HashMap<CarrierType, Carrier>();
     }
 
     public static CarrierRepository getSharedInstance() {
@@ -20,31 +21,34 @@ public class CarrierRepository {
 
 
     public void createDefaultCarriers() {
-        Map mapOfSeatsPerClassForBoeing = new HashMap<TravelClass, Integer>();
-        Map mapOfSeatsPerClassForAirbus = new HashMap<TravelClass, Integer>();
-        Map mapOfSeatsPerClassForAirbus1 = new HashMap<TravelClass, Integer>();
+        HashMap<TravelClass, Integer> mapOfSeatsPerClassForCarrier1 = new HashMap<TravelClass, Integer>();
+        mapOfSeatsPerClassForCarrier1.put(TravelClass.FIRST, 0);
+        mapOfSeatsPerClassForCarrier1.put(TravelClass.BUSINESS, 0);
+        mapOfSeatsPerClassForCarrier1.put(TravelClass.ECONOMY, 80);
+        Carrier carrier1 = new Carrier(CarrierType.BOEING777, mapOfSeatsPerClassForCarrier1);
+        carriers.put(CarrierType.BOEING777, carrier1);
 
-        mapOfSeatsPerClassForBoeing.put(TravelClass.FIRST, 0);
-        mapOfSeatsPerClassForBoeing.put(TravelClass.BUSINESS, 0);
-        mapOfSeatsPerClassForBoeing.put(TravelClass.ECONOMY, 80);
-        carriers.put(CarrierType.BOEING777, (HashMap<TravelClass, Integer>) mapOfSeatsPerClassForBoeing);
+        HashMap<TravelClass, Integer> mapOfSeatsPerClassForCarrier2 = new HashMap<TravelClass, Integer>();
+        mapOfSeatsPerClassForCarrier2.put(TravelClass.FIRST, 0);
+        mapOfSeatsPerClassForCarrier2.put(TravelClass.BUSINESS, 20);
+        mapOfSeatsPerClassForCarrier2.put(TravelClass.ECONOMY, 60);
+        Carrier carrier2 = new Carrier(CarrierType.AIRBUS321, mapOfSeatsPerClassForCarrier2);
+        carriers.put(CarrierType.AIRBUS321, carrier2);
 
-        mapOfSeatsPerClassForAirbus.put(TravelClass.FIRST, 0);
-        mapOfSeatsPerClassForAirbus.put(TravelClass.BUSINESS, 20);
-        mapOfSeatsPerClassForAirbus.put(TravelClass.ECONOMY, 60);
-        carriers.put(CarrierType.AIRBUS321, (HashMap<TravelClass, Integer>) mapOfSeatsPerClassForAirbus);
-
-        mapOfSeatsPerClassForAirbus1.put(TravelClass.FIRST, 10);
-        mapOfSeatsPerClassForAirbus1.put(TravelClass.BUSINESS, 10);
-        mapOfSeatsPerClassForAirbus1.put(TravelClass.ECONOMY, 60);
-        carriers.put(CarrierType.AIRBUS319V2, (HashMap<TravelClass, Integer>) mapOfSeatsPerClassForAirbus1);
+        HashMap<TravelClass, Integer> mapOfSeatsPerClassForCarrier3 = new HashMap<TravelClass, Integer>();
+        mapOfSeatsPerClassForCarrier3.put(TravelClass.FIRST, 10);
+        mapOfSeatsPerClassForCarrier3.put(TravelClass.BUSINESS, 10);
+        mapOfSeatsPerClassForCarrier3.put(TravelClass.ECONOMY, 60);
+        Carrier carrier3 = new Carrier(CarrierType.AIRBUS321, mapOfSeatsPerClassForCarrier3);
+        carriers.put(CarrierType.AIRBUS319V2, carrier3);
     }
 
 
     public void printCarriers() {
-        for (Map.Entry <CarrierType, HashMap<TravelClass, Integer>> entry : carriers.entrySet()){
+        for (Map.Entry <CarrierType, Carrier> entry : carriers.entrySet()){
             System.out.println(entry.getKey());
-            HashMap<TravelClass, Integer> mapOfSeatsPerClass = entry.getValue();
+            Carrier carrier = entry.getValue();
+            Map<TravelClass, Integer> mapOfSeatsPerClass = carrier.getMapOfSeatsPerClass();
             for (Map.Entry <TravelClass, Integer> travelClassEntry : mapOfSeatsPerClass.entrySet()) {
                 System.out.println(travelClassEntry.getKey() + " " + travelClassEntry.getValue());
             }
@@ -52,7 +56,7 @@ public class CarrierRepository {
         }
     }
 
-    public Map<CarrierType, HashMap<TravelClass, Integer>> getCarriers() {
+    public Map<CarrierType, Carrier> getCarriers() {
         return carriers;
     }
 
@@ -60,5 +64,4 @@ public class CarrierRepository {
 }
 
 
-// Carrier carrier3 = new Carrier(CarrierType.AIRBUS319V2, mapOfSeatsPerClassForAirbus1);
 // System.out.println("Inside creating default carriers" + carriers.size());

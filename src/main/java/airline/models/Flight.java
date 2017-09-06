@@ -29,7 +29,8 @@ public class Flight {
 
     public void populateMapOfSeatsPerClassBasedOnCarrier() {
         CarrierRepository carrierRepository = CarrierRepository.getSharedInstance();
-        HashMap<TravelClass, Integer> mapOfSeatsPerClassForCarrier = carrierRepository.getCarriers().get(carrierType);
+        Carrier carrier = carrierRepository.getCarriers().get(carrierType);
+        Map<TravelClass, Integer> mapOfSeatsPerClassForCarrier = carrier.getMapOfSeatsPerClass();
 
         for (Map.Entry <TravelClass, Integer> travelClassEntry : mapOfSeatsPerClassForCarrier.entrySet()) {
             mapOfSeatsPerClass.put(travelClassEntry.getKey(), travelClassEntry.getValue());

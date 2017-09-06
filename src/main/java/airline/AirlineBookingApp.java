@@ -13,13 +13,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AirlineBookingApp {
     public static void main(String []args) {
-        // create default cities and flights
+        // create default cities, carriers and flights
         CityRepository cityRepository = CityRepository.getSharedInstance();
         cityRepository.createDefaultCities();
 
         CarrierRepository carrierRepository = CarrierRepository.getSharedInstance();
         carrierRepository.createDefaultCarriers();
-        //carrierRepository.printCarriers();
+        carrierRepository.printCarriers();
 
         FlightRepository flightRepository = FlightRepository.getSharedInstance();
         flightRepository.createDefaultFlights();
