@@ -1,5 +1,6 @@
 package airline;
 
+import airline.repositories.CarrierRepository;
 import airline.repositories.CityRepository;
 import airline.repositories.FlightRepository;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +16,10 @@ public class AirlineBookingApp {
         // create default cities and flights
         CityRepository cityRepository = CityRepository.getSharedInstance();
         cityRepository.createDefaultCities();
+
+        CarrierRepository carrierRepository = CarrierRepository.getSharedInstance();
+        carrierRepository.createDefaultCarriers();
+        //carrierRepository.printCarriers();
 
         FlightRepository flightRepository = FlightRepository.getSharedInstance();
         flightRepository.createDefaultFlights();

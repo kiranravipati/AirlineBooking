@@ -2,18 +2,13 @@ package airline.controllers;
 
 import airline.models.City;
 import airline.models.Flight;
-
 import airline.models.SearchCriteria;
 import airline.services.FlightSearchService;
-
 import airline.repositories.CityRepository;
-
-
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.text.ParseException;
 import java.util.*;
 
