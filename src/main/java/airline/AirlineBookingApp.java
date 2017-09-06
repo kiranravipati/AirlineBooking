@@ -17,10 +17,10 @@ public class AirlineBookingApp {
         CityRepository cityRepository = CityRepository.getSharedInstance();
         cityRepository.createDefaultCities();
 
-        CarrierRepository carrierRepository = CarrierRepository.getSharedInstance();
+        CarrierRepository carrierRepository = new CarrierRepository();
         carrierRepository.createDefaultCarriers();
 
-        FlightRepository flightRepository = FlightRepository.getSharedInstance();
+        FlightRepository flightRepository = new FlightRepository();
         flightRepository.createDefaultFlights();
 
         SpringApplication.run(AirlineBookingApp.class,args);

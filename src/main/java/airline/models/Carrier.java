@@ -26,4 +26,12 @@ public class Carrier {
     public Integer getNoOfSeatsForTravelClass(TravelClass travelClass) {
         return mapOfSeatsPerClass.get(travelClass);
     }
+
+    public Boolean isValidCarrierType(CarrierType carrierType){
+        return (this.carrierType.equals(carrierType)) ? true : false;
+    }
+
+    public Boolean hasTravelClass(TravelClass travelClass){
+        return this.mapOfSeatsPerClass.containsKey(travelClass);
+    }
 }

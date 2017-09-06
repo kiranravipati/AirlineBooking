@@ -4,18 +4,20 @@ import airline.models.Flight;
 import airline.models.SearchCriteria;
 import airline.models.TravelClass;
 import airline.repositories.FlightRepository;
+import org.springframework.stereotype.Service;
+
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 import java.util.List;
 
-//@Service
+@Service
 public class FlightSearchService {
     //@Autowired
     FlightRepository flightRepository;
 
     public List<Flight> search(SearchCriteria searchCriteria) throws ParseException {
-        flightRepository = FlightRepository.getSharedInstance();
+        flightRepository = new FlightRepository();
         List<Flight> flights = flightRepository.getFlights();
 
         return  flights.stream()

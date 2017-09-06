@@ -20,6 +20,11 @@ public class Flight {
         this.carrier = carrier;
     }
 
+    public Flight(String flightNumber, String source, String destination) {
+        this.flightNumber = flightNumber;
+        this.source = source;
+        this.destination = destination;
+    }
 //    public void populateMapOfSeatsPerClassBasedOnCarrier() {
 //        CarrierRepository carrierRepository = CarrierRepository.getSharedInstance();
 //        Carrier carrier = carrierRepository.getCarriers().get(carrierType);

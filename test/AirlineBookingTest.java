@@ -16,8 +16,7 @@ public class AirlineBookingTest {
 
     @Before
     public void setUp() {
-        flightRepository = FlightRepository.getSharedInstance();
-        flightRepository.createDefaultFlights();
+        flightRepository = new FlightRepository();
         flightSearchService = new FlightSearchService();
     }
 
