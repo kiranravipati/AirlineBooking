@@ -24,7 +24,10 @@ public class Carrier {
     }
 
     public Integer getNoOfSeatsForTravelClass(TravelClass travelClass) {
-        return mapOfSeatsPerClass.get(travelClass);
+        if (this.hasTravelClass(travelClass))
+            return mapOfSeatsPerClass.get(travelClass);
+        else
+            return 0;
     }
 
     public Boolean isValidCarrierType(CarrierType carrierType){

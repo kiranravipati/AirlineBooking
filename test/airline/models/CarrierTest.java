@@ -18,7 +18,6 @@ public class CarrierTest {
     @Before
     public void setUp() throws Exception {
         carrierRepositoryTest = new CarrierRepository();
-        carrierRepositoryTest.createDefaultCarriers();
         testMap = carrierRepositoryTest.getCarriers();
     }
 

@@ -4,8 +4,8 @@ import airline.models.Flight;
 import airline.models.SearchCriteria;
 import airline.models.TravelClass;
 import airline.repositories.FlightRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class FlightSearchService {
-    //@Autowired
+    @Autowired
     FlightRepository flightRepository;
 
     public List<Flight> search(SearchCriteria searchCriteria) throws ParseException {
@@ -40,13 +40,3 @@ public class FlightSearchService {
             return false;
     }
 }
-
-
-//        Predicate<Flight> seatsAvailability = (Flight p) -> p.getAvailableSeats() >= searchCriteria.getSeatsRequested();
-//
-//        return  flights.stream()
-//                .filter(x -> x.getSource().equals(searchCriteria.getSource()))
-//                .filter(x -> x.getDestination().equals(searchCriteria.getDestination()))
-//                .filter(seatsAvailability)
-//                .filter(x -> compareDates(x.getDepartureDate(), searchCriteria.getDepartureDate()))
-//                .collect(Collectors.toList());

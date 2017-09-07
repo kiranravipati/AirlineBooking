@@ -25,15 +25,6 @@ public class Flight {
         this.source = source;
         this.destination = destination;
     }
-//    public void populateMapOfSeatsPerClassBasedOnCarrier() {
-//        CarrierRepository carrierRepository = CarrierRepository.getSharedInstance();
-//        Carrier carrier = carrierRepository.getCarriers().get(carrierType);
-//        Map<TravelClass, Integer> mapOfSeatsPerClassForCarrier = carrier.getMapOfSeatsPerClass();
-//
-//        for (Map.Entry <TravelClass, Integer> travelClassEntry : mapOfSeatsPerClassForCarrier.entrySet()) {
-//            mapOfAvailableSeatsPerClass.put(travelClassEntry.getKey(), travelClassEntry.getValue());
-//        }
-//    }
 
     public String getFlightNumber() {
         return flightNumber;

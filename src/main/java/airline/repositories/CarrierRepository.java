@@ -3,33 +3,35 @@ package airline.repositories;
 import airline.models.Carrier;
 import airline.models.CarrierType;
 import airline.models.TravelClass;
+import org.springframework.stereotype.Repository;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class CarrierRepository {
     private Map<CarrierType, Carrier> carriers;
+
     public CarrierRepository() {
-        carriers = new HashMap<CarrierType, Carrier>();
+        carriers = new HashMap<>();
+        createDefaultCarriers();
     }
 
-    public void createDefaultCarriers() {
-        HashMap<TravelClass, Integer> mapOfSeatsPerClassForCarrier1 = new HashMap<TravelClass, Integer>();
+    private void createDefaultCarriers() {
+        Map<TravelClass, Integer> mapOfSeatsPerClassForCarrier1 = new HashMap<>();
         mapOfSeatsPerClassForCarrier1.put(TravelClass.FIRST, 10);
         mapOfSeatsPerClassForCarrier1.put(TravelClass.BUSINESS, 20);
         mapOfSeatsPerClassForCarrier1.put(TravelClass.ECONOMY, 80);
         Carrier carrier1 = new Carrier(CarrierType.BOEING777, mapOfSeatsPerClassForCarrier1);
         carriers.put(CarrierType.BOEING777, carrier1);
 
-        HashMap<TravelClass, Integer> mapOfSeatsPerClassForCarrier2 = new HashMap<TravelClass, Integer>();
-        //mapOfSeatsPerClassForCarrier2.put(TravelClass.FIRST, 0);
+        Map<TravelClass, Integer> mapOfSeatsPerClassForCarrier2 = new HashMap<>();
         mapOfSeatsPerClassForCarrier2.put(TravelClass.BUSINESS, 20);
         mapOfSeatsPerClassForCarrier2.put(TravelClass.ECONOMY, 60);
         Carrier carrier2 = new Carrier(CarrierType.AIRBUS321, mapOfSeatsPerClassForCarrier2);
         carriers.put(CarrierType.AIRBUS321, carrier2);
 
-        HashMap<TravelClass, Integer> mapOfSeatsPerClassForCarrier3 = new HashMap<TravelClass, Integer>();
-        //mapOfSeatsPerClassForCarrier3.put(TravelClass.FIRST, 0);
-        //mapOfSeatsPerClassForCarrier3.put(TravelClass.BUSINESS, 0);
+        Map<TravelClass, Integer> mapOfSeatsPerClassForCarrier3 = new HashMap<>();
         mapOfSeatsPerClassForCarrier3.put(TravelClass.ECONOMY, 60);
         Carrier carrier3 = new Carrier(CarrierType.AIRBUS319V2, mapOfSeatsPerClassForCarrier3);
         carriers.put(CarrierType.AIRBUS319V2, carrier3);
@@ -51,6 +53,4 @@ public class CarrierRepository {
     public Map<CarrierType, Carrier> getCarriers() {
         return carriers;
     }
-
-
 }
