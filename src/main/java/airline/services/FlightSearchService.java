@@ -17,7 +17,6 @@ public class FlightSearchService {
     FlightRepository flightRepository;
 
     public List<Flight> search(SearchCriteria searchCriteria) throws ParseException {
-        flightRepository = new FlightRepository();
         List<Flight> flights = flightRepository.getFlights();
 
         return  flights.stream()
