@@ -1,9 +1,6 @@
 package airline.controllers;
 
-import airline.models.City;
-import airline.models.Flight;
-import airline.models.SearchCriteria;
-import airline.models.TravelClass;
+import airline.models.*;
 import airline.services.FlightSearchService;
 import airline.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +32,15 @@ public class FlightSearchController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model, BindingResult bindingResult) throws ParseException {
-        List<Flight> matchedFlights = flightSearchService.search(searchCriteria);
-        boolean flightsFound;
-        flightsFound = matchedFlights.size() > 0;
+        List<SearchResult> searchResults = flightSearchService.search(searchCriteria);
+        boolean resultsFound = searchResults.size() > 0;
 
         List<City> cities = cityRepository.getCities();
         model.addAttribute("cities", cities);
         model.addAttribute("searchCriteria", new SearchCriteria());
         model.addAttribute("serviceClassList", TravelClass.values());
-        model.addAttribute("flightsFound", flightsFound);
-        model.addAttribute("searchResults", matchedFlights);
+        model.addAttribute("resultsFound", resultsFound);
+        model.addAttribute("searchResults", searchResults);
 
         return "flightSearch";
     }

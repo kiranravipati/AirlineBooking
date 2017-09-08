@@ -73,7 +73,7 @@
 
 <br/>
 
-<div class="col-md-8" th:if="${flightsFound} == true">
+<div class="col-md-8" th:if="${resultsFound} == true">
     <div style="margin: 5px;">
         <center><h5>Want to board these flights?</h5></center>
     </div>
@@ -81,25 +81,27 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Flight Id</th>
-            <th>Carrier Type</th>
+            <th>Flight</th>
+            <th>Carrier</th>
             <th>Source</th>
             <th>Destination</th>
+            <th>Booking Cost</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="flight : ${searchResults}">
-            <td th:text="${flight.flightNumber}"/>
-            <td th:text="${flight.carrier.carrierType}"/>
-            <td th:text="${flight.source}"/>
-            <td th:text="${flight.destination}"/>
+        <tr th:each="searchResult : ${searchResults}">
+            <td th:text="${searchResult.flightNumber}"/>
+            <td th:text="${searchResult.carrierType}"/>
+            <td th:text="${searchResult.source}"/>
+            <td th:text="${searchResult.destination}"/>
+            <td th:text="${searchResult.bookingPrice}"></td>
         </tr>
         </tbody>
     </table>
 </div>
 
-<div class="col-md-12" style="padding:5px; background-color: #eeeeee;" th:if="${flightsFound} == false">
+<div class="col-md-12" style="padding:5px; background-color: #eeeeee;" th:if="${resultsFound} == false">
     <center>Please bear with us, try again...</center>
 </div>
 </body>

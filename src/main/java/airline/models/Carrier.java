@@ -17,10 +17,6 @@ public class Carrier {
         return carrierType;
     }
 
-    public void setCarrierType(CarrierType carrierType) {
-        this.carrierType = carrierType;
-    }
-
     public Map<TravelClass, Integer> getMapOfSeatsPerClass() {
         return mapOfSeatsPerClass;
     }
@@ -34,6 +30,13 @@ public class Carrier {
             return mapOfSeatsPerClass.get(travelClass);
         else
             return 0;
+    }
+
+    public float getPriceForTravelClass(TravelClass travelClass) {
+        if (mapOfPricePerClass.containsKey(travelClass))
+            return mapOfPricePerClass.get(travelClass);
+        else
+            return 0.0f;
     }
 
     public Boolean isValidCarrierType(CarrierType carrierType){

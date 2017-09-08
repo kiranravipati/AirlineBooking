@@ -26,7 +26,7 @@ public class FlightRepository {
         Flight flight1 = new Flight("F1", "HYD", "BLR", LocalDate.now(), carrierMap.get(CarrierType.BOEING777));
         Flight flight2 = new Flight("F2", "HYD", "PUN", LocalDate.of(2017, Month.SEPTEMBER,8), carrierMap.get(CarrierType.AIRBUS319V2));
         Flight flight3 = new Flight("F3", "BLR", "PUN", LocalDate.of(2017, Month.SEPTEMBER,9), carrierMap.get(CarrierType.BOEING777));
-        Flight flight4 = new Flight("F4", "HYD", "BLR", LocalDate.of(2017, Month.SEPTEMBER,7), carrierMap.get(CarrierType.AIRBUS321));
+        Flight flight4 = new Flight("F4", "HYD", "BLR", LocalDate.of(2017, Month.SEPTEMBER,8), carrierMap.get(CarrierType.AIRBUS321));
 
         flights.add(flight1);
         flights.add(flight2);
