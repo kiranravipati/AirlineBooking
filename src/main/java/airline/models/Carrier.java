@@ -5,10 +5,12 @@ import java.util.Map;
 public class Carrier {
     private CarrierType carrierType;
     private Map<TravelClass, Integer> mapOfSeatsPerClass;
+    private Map<TravelClass, Float> mapOfPricePerClass;
 
-    public Carrier(CarrierType carrierType, Map<TravelClass, Integer> mapOfSeatsPerClass) {
+    public Carrier(CarrierType carrierType, Map<TravelClass, Integer> mapOfSeatsPerClass, Map<TravelClass, Float> mapOfPricePerClass) {
         this.carrierType = carrierType;
         this.mapOfSeatsPerClass = mapOfSeatsPerClass;
+        this.mapOfPricePerClass = mapOfPricePerClass;
     }
 
     public CarrierType getCarrierType() {
@@ -21,6 +23,10 @@ public class Carrier {
 
     public Map<TravelClass, Integer> getMapOfSeatsPerClass() {
         return mapOfSeatsPerClass;
+    }
+
+    public Map<TravelClass, Float> getMapOfPricePerClass() {
+        return mapOfPricePerClass;
     }
 
     public Integer getNoOfSeatsForTravelClass(TravelClass travelClass) {

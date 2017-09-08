@@ -22,7 +22,7 @@ public class FlightSearchController {
     @Autowired
     FlightSearchService flightSearchService;
 
-    @RequestMapping(value = "/airlineTicketing", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getCities(Model model) {
         List<City> cities = cityRepository.getCities();
 
@@ -36,9 +36,16 @@ public class FlightSearchController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model, BindingResult bindingResult) throws ParseException {
         List<Flight> matchedFlights = flightSearchService.search(searchCriteria);
+        boolean flightsFound;
+        flightsFound = matchedFlights.size() > 0;
 
+        List<City> cities = cityRepository.getCities();
+        model.addAttribute("cities", cities);
+        model.addAttribute("searchCriteria", new SearchCriteria());
+        model.addAttribute("serviceClassList", TravelClass.values());
+        model.addAttribute("flightsFound", flightsFound);
         model.addAttribute("searchResults", matchedFlights);
 
-        return "flightsView";
+        return "flightSearch";
     }
 }

@@ -26,6 +26,13 @@ public class Flight {
         this.destination = destination;
     }
 
+    public Flight(String flightNumber, String source, String destination, LocalDate departureDate) {
+        this.flightNumber = flightNumber;
+        this.source = source;
+        this.destination = destination;
+        this.departureDate = departureDate;
+    }
+
     public String getFlightNumber() {
         return flightNumber;
     }

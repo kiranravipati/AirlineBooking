@@ -2,6 +2,7 @@ package airline.services;
 
 import airline.models.Flight;
 import airline.models.SearchCriteria;
+import airline.models.TravelClass;
 import airline.repositories.FlightRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,11 +30,11 @@ public class FlightSearchServiceTest {
     @Autowired(required = true)
     private FlightSearchService flightSearchService;
 
-    Flight mockFlight = new Flight("123", "src", "dest");
+    Flight mockFlight = new Flight("123", "src", "dest", LocalDate.now());
     private List<Flight> listOfMockFlights = new ArrayList<>(Arrays.asList(mockFlight));
 
     @Test
-    public void testGetFlightsBetweenCities() {
+    public void shouldGetFlightsBetweenCities() {
         Mockito.when(flightRepository.getFlights()).thenReturn(listOfMockFlights);
 
         SearchCriteria searchCriteria = new SearchCriteria();
@@ -51,5 +52,50 @@ public class FlightSearchServiceTest {
 
         assertEquals(listOfFlights, listOfMockFlights);
     }
+
+
+    @Test
+    public void shouldGetFlightsBetweenCitiesBasedOnDepartureDate() {
+        Mockito.when(flightRepository.getFlights()).thenReturn(listOfMockFlights);
+
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.setSource("src");
+        searchCriteria.setDestination("dest");
+        searchCriteria.setDepartureDate(LocalDate.now());
+
+        List<Flight> listOfFlights;
+
+        try {
+            listOfFlights = flightSearchService.search(searchCriteria);
+        }
+        catch (Exception e) {
+            return ;
+        }
+
+        assertEquals(listOfFlights, listOfMockFlights);
+    }
+
+
+//    @Test
+//    public void shouldGetFlightsBetweenCitiesForGivenNumberOfPassengersBasedOnTravelClass() {
+//        Mockito.when(flightRepository.getFlights()).thenReturn(listOfMockFlights);
+//
+//        SearchCriteria searchCriteria = new SearchCriteria();
+//        searchCriteria.setSource("src");
+//        searchCriteria.setDestination("dest");
+//        searchCriteria.setSeatsRequested(2);
+//        searchCriteria.setTravelClass(TravelClass.ECONOMY);
+//
+//        List<Flight> listOfFlights;
+//
+//        try {
+//            listOfFlights = flightSearchService.search(searchCriteria);
+//        }
+//        catch (Exception e) {
+//            return ;
+//        }
+//
+//        assertEquals(listOfFlights, listOfMockFlights);
+//    }
 
 }

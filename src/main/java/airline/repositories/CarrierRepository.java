@@ -22,18 +22,33 @@ public class CarrierRepository {
         mapOfSeatsPerClassForCarrier1.put(TravelClass.FIRST, 10);
         mapOfSeatsPerClassForCarrier1.put(TravelClass.BUSINESS, 20);
         mapOfSeatsPerClassForCarrier1.put(TravelClass.ECONOMY, 80);
-        Carrier carrier1 = new Carrier(CarrierType.BOEING777, mapOfSeatsPerClassForCarrier1);
+
+        Map<TravelClass, Float> mapOfPricePerClassForCarrier1 = new HashMap<>();
+        mapOfPricePerClassForCarrier1.put(TravelClass.FIRST, 10000f);
+        mapOfPricePerClassForCarrier1.put(TravelClass.BUSINESS, 8000f);
+        mapOfPricePerClassForCarrier1.put(TravelClass.ECONOMY, 4000f);
+
+        Carrier carrier1 = new Carrier(CarrierType.BOEING777, mapOfSeatsPerClassForCarrier1, mapOfPricePerClassForCarrier1);
         carriers.put(CarrierType.BOEING777, carrier1);
 
         Map<TravelClass, Integer> mapOfSeatsPerClassForCarrier2 = new HashMap<>();
         mapOfSeatsPerClassForCarrier2.put(TravelClass.BUSINESS, 20);
         mapOfSeatsPerClassForCarrier2.put(TravelClass.ECONOMY, 60);
-        Carrier carrier2 = new Carrier(CarrierType.AIRBUS321, mapOfSeatsPerClassForCarrier2);
+
+        Map<TravelClass, Float> mapOfPricePerClassForCarrier2 = new HashMap<>();
+        mapOfPricePerClassForCarrier2.put(TravelClass.BUSINESS, 7500f);
+        mapOfPricePerClassForCarrier2.put(TravelClass.ECONOMY, 3000f);
+
+        Carrier carrier2 = new Carrier(CarrierType.AIRBUS321, mapOfSeatsPerClassForCarrier2, mapOfPricePerClassForCarrier2);
         carriers.put(CarrierType.AIRBUS321, carrier2);
 
         Map<TravelClass, Integer> mapOfSeatsPerClassForCarrier3 = new HashMap<>();
         mapOfSeatsPerClassForCarrier3.put(TravelClass.ECONOMY, 60);
-        Carrier carrier3 = new Carrier(CarrierType.AIRBUS319V2, mapOfSeatsPerClassForCarrier3);
+
+        Map<TravelClass, Float> mapOfPricePerClassForCarrier3 = new HashMap<>();
+        mapOfPricePerClassForCarrier3.put(TravelClass.ECONOMY, 4000f);
+
+        Carrier carrier3 = new Carrier(CarrierType.AIRBUS319V2, mapOfSeatsPerClassForCarrier3, mapOfPricePerClassForCarrier3);
         carriers.put(CarrierType.AIRBUS319V2, carrier3);
     }
 
