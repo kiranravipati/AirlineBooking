@@ -21,41 +21,27 @@ public class FlightSearchService {
         List<Flight> matchingFlights = flights.stream()
                 .filter(x -> x.getSource().equals(searchCriteria.getSource()))
                 .filter(x -> x.getDestination().equals(searchCriteria.getDestination()))
-                .filter(x -> x.isSeatAvailableForTravelClass(searchCriteria.getTravelClass(), searchCriteria.getSeatsRequested()))
                 .filter(x -> compareDates(x.getDepartureDate(), searchCriteria.getDepartureDate()))
+                .filter(x -> x.isSeatAvailableForTravelClass(searchCriteria.getTravelClass(), searchCriteria.getSeatsRequested()))
                 .collect(Collectors.toList());
-        return buildResultsFrom(matchingFlights, searchCriteria);
+        return matchingFlightsWithFareDetails(matchingFlights, searchCriteria);
     }
 
     private boolean compareDates(LocalDate flightDepartureDate, LocalDate searchCriteriaDate) {
         return (searchCriteriaDate == null) ? true : flightDepartureDate.equals(searchCriteriaDate);
     }
 
-    public List<SearchResult> buildResultsFrom(List<Flight> flights, SearchCriteria searchCriteria) {
+    public List<SearchResult> matchingFlightsWithFareDetails(List<Flight> flights, SearchCriteria searchCriteria) {
         List<SearchResult> searchResults = new ArrayList<>();
         SearchResult searchResult;
-        float bookingPrice = 0.0f;
+        float pricePerHead, totalPrice = 0.0f;
 
         for(Flight flight : flights) {
-            switch(searchCriteria.getTravelClass()) {
-                case ECONOMY:
-                    float basePriceForEconomyClass = flight.basePriceForTravelClass(TravelClass.ECONOMY);
-                    EconomyPriceCalculator economyPriceCalculator = new EconomyPriceCalculator(basePriceForEconomyClass);
-                    bookingPrice = economyPriceCalculator.getBookingPrice(searchCriteria.getSeatsRequested());
-                    break;
+            PriceCalculator priceCalculator = new PriceCalculator(flight, searchCriteria);
+            totalPrice = priceCalculator.getBookingPrice();
+            pricePerHead = priceCalculator.getPricePerHead();
 
-                case BUSINESS:
-                    break;
-
-                case FIRST:
-                    break;
-
-                default:
-                    break;
-            }
-
-            searchResult = new SearchResult(flight.getFlightNumber(), flight.getCarrier().getCarrierType(),
-                                            flight.getSource(), flight.getDestination(), bookingPrice);
+            searchResult = new SearchResult(flight, pricePerHead, totalPrice);
             searchResults.add(searchResult);
         }
 

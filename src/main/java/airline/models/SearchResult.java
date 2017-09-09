@@ -5,14 +5,16 @@ public class SearchResult {
     private CarrierType carrierType;
     private String source;
     private String destination;
-    private float bookingPrice;
+    private float pricePerHead;
+    private float totalPrice;
 
-    public SearchResult(String flightNumber, CarrierType carrierType, String source, String destination, float bookingPrice) {
-        this.flightNumber = flightNumber;
-        this.carrierType = carrierType;
-        this.source = source;
-        this.destination = destination;
-        this.bookingPrice = bookingPrice;
+    public SearchResult(Flight flight, float pricePerHead, float totalPrice) {
+        this.flightNumber = flight.getFlightNumber();
+        this.carrierType = flight.getCarrier().getCarrierType();
+        this.source = flight.getSource();
+        this.destination = flight.getDestination();
+        this.pricePerHead = pricePerHead;
+        this.totalPrice = totalPrice;
     }
 
     public String getFlightNumber() {
@@ -31,10 +33,13 @@ public class SearchResult {
         return destination;
     }
 
-    public float getBookingPrice() {
-        return bookingPrice;
+    public float getPricePerHead() {
+        return pricePerHead;
     }
 
+    public float getTotalPrice() {
+        return totalPrice;
+    }
 }
 
 

@@ -1,28 +1,25 @@
 package airline.models;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class SearchCriteria {
     private String source;
     private String destination;
-    private int seatsRequested;
+    private Optional<Integer> seatsRequested;
     private String departureDateString;
-    private LocalDate departureDate;
     private TravelClass travelClass;
 
-    private static final int DEFAULT_PASSENGERS = 1;
-
     public SearchCriteria() {
-        this.seatsRequested = DEFAULT_PASSENGERS;
+        this.seatsRequested = Optional.of(1);
     }
 
-    public SearchCriteria(String source, String destination, int seatsRequested, String departureDateString, String serviceClass) {
+    public SearchCriteria(String source, String destination, Optional <Integer> seatsRequested, String departureDateString, String travelClass) {
         this.source = source;
         this.destination = destination;
         this.seatsRequested = seatsRequested;
         this.departureDateString = departureDateString;
-        this.departureDate = (departureDateString.isEmpty()) ? null : LocalDate.parse(departureDateString);
-        this.travelClass = travelClass;
+        this.travelClass = TravelClass.valueOf(travelClass);
     }
 
     public String getSource() {
@@ -42,31 +39,26 @@ public class SearchCriteria {
     }
 
     public int getSeatsRequested() {
-        return seatsRequested;
+        return seatsRequested.get();
     }
 
-    public void setSeatsRequested(int seatsRequested) {
-        if (seatsRequested <= 0)
-            this.seatsRequested = 1;
+    public void setSeatsRequested(Optional<Integer> seatsRequested) {
+        if (!seatsRequested.isPresent())
+            this.seatsRequested = Optional.of(1);
         else
             this.seatsRequested = seatsRequested;
     }
 
-    public LocalDate getDepartureDate() {
-        return departureDate;
-    }
-
-    public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
+    public void setDepartureDateString(String departureDateString) {
+        this.departureDateString = departureDateString;
     }
 
     public String getDepartureDateString() {
         return departureDateString;
     }
 
-    public void setDepartureDateString(String departureDateString) {
-        this.departureDateString = departureDateString;
-        this.departureDate = (departureDateString.isEmpty()) ? null : LocalDate.parse(departureDateString);
+    public LocalDate getDepartureDate() {
+        return (departureDateString.isEmpty()) ? null : LocalDate.parse(departureDateString);
     }
 
     public TravelClass getTravelClass() {
@@ -79,6 +71,6 @@ public class SearchCriteria {
 
     @Override
     public String toString() {
-        return String.format("Source %s\nDestination %s\n passengers %d departure date %s travel class %s", source, destination, seatsRequested, departureDateString, travelClass);
+        return String.format("Source %s\nDestination %s\n passengers %d departure date %s travel class %s", source, destination, seatsRequested.get(), departureDateString, travelClass);
     }
 }

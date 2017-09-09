@@ -52,8 +52,8 @@ public class FlightSearchServiceTest {
 //
 //        assertEquals(listOfFlights, listOfMockFlights);
 //    }
-//
-//
+
+
 //    @Test
 //    public void shouldGetFlightsBetweenCitiesBasedOnDepartureDate() {
 //        Mockito.when(flightRepository.getFlights()).thenReturn(listOfMockFlights);

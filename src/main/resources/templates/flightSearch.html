@@ -9,10 +9,11 @@
 </head>
 
 <body>
-<div class="col-md-12">
-    <div style="margin: 5px;">
-        <center><h5>Get ready to search flights!!!</h5></center>
-    </div>
+
+<div class="row" style="margin: 10px;">
+
+<div class="col-md-8">
+    <center><h5>Get ready to search flights!!!</h5></center>
     <form method="post" action="#" th:action="@{/search}" th:object="${searchCriteria}">
         <table class="table" style="background-color: #eeeeee">
             <tr>
@@ -70,22 +71,27 @@
         <input type="submit" value="Submit"/>
     </form>
 </div>
+<div class="col-md-3">
+    <img src="../fly.png"/>
+</div>
+</div>
 
 <br/>
 
 <div class="col-md-8" th:if="${resultsFound} == true">
     <div style="margin: 5px;">
-        <center><h5>Want to board these flights?</h5></center>
+        <center><b>You are most welcome to fly with us on these flights!!!</b></center>
     </div>
 
     <table class="table table-bordered">
-        <thead>
-        <tr>
+        <thead >
+        <tr style="background-colour: #eeeeee;">
             <th>Flight</th>
             <th>Carrier</th>
             <th>Source</th>
             <th>Destination</th>
-            <th>Booking Cost</th>
+            <th>Price per head</th>
+            <th>Total Price</th>
         </tr>
         </thead>
 
@@ -95,10 +101,12 @@
             <td th:text="${searchResult.carrierType}"/>
             <td th:text="${searchResult.source}"/>
             <td th:text="${searchResult.destination}"/>
-            <td th:text="${searchResult.bookingPrice}"></td>
+            <td th:text="${searchResult.pricePerHead}"/>
+            <td th:text="${searchResult.totalPrice}"/>
         </tr>
         </tbody>
     </table>
+
 </div>
 
 <div class="col-md-12" style="padding:5px; background-color: #eeeeee;" th:if="${resultsFound} == false">
