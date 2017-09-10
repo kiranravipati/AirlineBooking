@@ -58,7 +58,11 @@ public class SearchCriteria {
     }
 
     public LocalDate getDepartureDate() {
-        return (departureDateString.isEmpty()) ? null : LocalDate.parse(departureDateString);
+        if (departureDateString == null || departureDateString.isEmpty()) {
+            return null;
+        } else {
+            return LocalDate.parse(departureDateString);
+        }
     }
 
     public TravelClass getTravelClass() {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.List;
 
@@ -15,23 +16,36 @@ public class FlightSearchService {
     @Autowired
     FlightRepository flightRepository;
 
-    public List<SearchResult> search(SearchCriteria searchCriteria) throws ParseException {
+    public List<Flight> search(SearchCriteria searchCriteria) throws ParseException {
         List<Flight> flights = flightRepository.getFlights();
 
-        List<Flight> matchingFlights = flights.stream()
-                .filter(x -> x.getSource().equals(searchCriteria.getSource()))
-                .filter(x -> x.getDestination().equals(searchCriteria.getDestination()))
-                .filter(x -> compareDates(x.getDepartureDate(), searchCriteria.getDepartureDate()))
-                .filter(x -> x.isSeatAvailableForTravelClass(searchCriteria.getTravelClass(), searchCriteria.getSeatsRequested()))
+        return flights.stream()
+                .filter(sourceMatches(searchCriteria.getSource()))
+                .filter(destinationMatches(searchCriteria.getDestination()))
+                .filter(departureDateMatches(searchCriteria.getDepartureDate()))
+                .filter(seatsAvailabilityMatches(searchCriteria.getTravelClass(), searchCriteria.getSeatsRequested()))
                 .collect(Collectors.toList());
-        return matchingFlightsWithFareDetails(matchingFlights, searchCriteria);
     }
 
-    private boolean compareDates(LocalDate flightDepartureDate, LocalDate searchCriteriaDate) {
-        return (searchCriteriaDate == null) ? true : flightDepartureDate.equals(searchCriteriaDate);
+    private static Predicate<Flight> sourceMatches(String source) {
+        return flight -> source == null || flight.getSource().equalsIgnoreCase(source);
     }
 
-    public List<SearchResult> matchingFlightsWithFareDetails(List<Flight> flights, SearchCriteria searchCriteria) {
+    private static Predicate<Flight> destinationMatches(String destination) {
+        return flight -> destination == null || flight.getDestination().equalsIgnoreCase(destination);
+    }
+
+    private static Predicate<Flight> seatsAvailabilityMatches(TravelClass travelClass, int seatsRequested) {
+        return flight -> travelClass == null || flight.isSeatAvailableForTravelClass(travelClass, seatsRequested);
+    }
+
+    private static Predicate<Flight> departureDateMatches(LocalDate searchCriteriaDate) {
+        return flight -> searchCriteriaDate == null || flight.getDepartureDate().equals(searchCriteriaDate);
+    }
+
+    public List<SearchResult> matchingFlightsWithFareDetails(SearchCriteria searchCriteria) throws ParseException {
+        List<Flight> flights = search(searchCriteria);
+
         List<SearchResult> searchResults = new ArrayList<>();
         SearchResult searchResult;
         float pricePerHead, totalPrice = 0.0f;

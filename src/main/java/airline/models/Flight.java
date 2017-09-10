@@ -70,12 +70,8 @@ public class Flight {
     }
 
     public boolean isSeatAvailableForTravelClass(TravelClass travelClass, int seatsRequested) {
-        int availableSeats = this.getCarrier().getNoOfSeatsForTravelClass(travelClass);
-
-        if (availableSeats >= seatsRequested)
-            return true;
-        else
-            return false;
+        int availableSeats = this.getCarrier().getAvailableSeatsForTravelClass(travelClass);
+        return (availableSeats >= seatsRequested) ? true : false;
     }
 
     public float basePriceForTravelClass(TravelClass travelClass) {

@@ -4,37 +4,33 @@ import java.util.Map;
 
 public class Carrier {
     private CarrierType carrierType;
-    private Map<TravelClass, Integer> mapOfSeatsPerClass;
-    private Map<TravelClass, Float> mapOfPricePerClass;
+    private Map<TravelClass, TravelClassInfo> mapOfSeatsAndPricePerClass;
 
-    public Carrier(CarrierType carrierType, Map<TravelClass, Integer> mapOfSeatsPerClass, Map<TravelClass, Float> mapOfPricePerClass) {
+    public Carrier(CarrierType carrierType, Map<TravelClass, TravelClassInfo> mapOfSeatsAndPricePerClass) {
         this.carrierType = carrierType;
-        this.mapOfSeatsPerClass = mapOfSeatsPerClass;
-        this.mapOfPricePerClass = mapOfPricePerClass;
+        this.mapOfSeatsAndPricePerClass = mapOfSeatsAndPricePerClass;
     }
 
     public CarrierType getCarrierType() {
         return carrierType;
     }
 
-    public Map<TravelClass, Integer> getMapOfSeatsPerClass() {
-        return mapOfSeatsPerClass;
+    public Map<TravelClass, TravelClassInfo> getMapOfSeatsAndPricePerClass() {
+        return mapOfSeatsAndPricePerClass;
     }
 
-    public Map<TravelClass, Float> getMapOfPricePerClass() {
-        return mapOfPricePerClass;
-    }
-
-    public Integer getNoOfSeatsForTravelClass(TravelClass travelClass) {
-        if (this.hasTravelClass(travelClass))
-            return mapOfSeatsPerClass.get(travelClass);
+    public Integer getAvailableSeatsForTravelClass(TravelClass travelClass) {
+        if (this.hasTravelClass(travelClass)) {
+            return mapOfSeatsAndPricePerClass.get(travelClass).getAvailableSeats();
+        }
         else
             return 0;
     }
 
     public float getPriceForTravelClass(TravelClass travelClass) {
-        if (mapOfPricePerClass.containsKey(travelClass))
-            return mapOfPricePerClass.get(travelClass);
+        if (this.hasTravelClass(travelClass)) {
+            return mapOfSeatsAndPricePerClass.get(travelClass).getPrice();
+        }
         else
             return 0.0f;
     }
@@ -44,6 +40,6 @@ public class Carrier {
     }
 
     public Boolean hasTravelClass(TravelClass travelClass){
-        return this.mapOfSeatsPerClass.containsKey(travelClass);
+        return this.mapOfSeatsAndPricePerClass.containsKey(travelClass);
     }
 }

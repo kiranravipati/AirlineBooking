@@ -32,7 +32,7 @@ public class FlightSearchController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model, BindingResult bindingResult) throws ParseException {
-        List<SearchResult> searchResults = flightSearchService.search(searchCriteria);
+        List<SearchResult> searchResults = flightSearchService.matchingFlightsWithFareDetails(searchCriteria);
         boolean resultsFound = searchResults.size() > 0;
 
         List<City> cities = cityRepository.getCities();

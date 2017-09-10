@@ -22,7 +22,9 @@ public class FlightRepository {
 
     private void createDefaultFlights() {
         CarrierRepository carrierRepository = new CarrierRepository();
+        carrierRepository.printCarriers();
         Map <CarrierType, Carrier> carrierMap = carrierRepository.getCarriers();
+
         Flight flight1 = new Flight("F1", "HYD", "BLR", LocalDate.now(), carrierMap.get(CarrierType.BOEING777));
         Flight flight2 = new Flight("F2", "HYD", "PUN", LocalDate.of(2017, Month.SEPTEMBER,8), carrierMap.get(CarrierType.AIRBUS319V2));
         Flight flight3 = new Flight("F3", "BLR", "PUN", LocalDate.of(2017, Month.SEPTEMBER,9), carrierMap.get(CarrierType.BOEING777));
