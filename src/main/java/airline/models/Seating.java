@@ -1,11 +1,11 @@
 package airline.models;
 
-public class TravelClassInfo {
+public class Seating {
     private int totalNoOfSeats;
     private int availableSeats;
     private float price;
 
-    public TravelClassInfo(int totalNoOfSeats, int availableSeats, float price) {
+    public Seating(int totalNoOfSeats, int availableSeats, float price) {
         this.totalNoOfSeats = totalNoOfSeats;
         this.availableSeats = availableSeats;
         this.price = price;

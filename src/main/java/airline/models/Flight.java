@@ -77,4 +77,13 @@ public class Flight {
     public float basePriceForTravelClass(TravelClass travelClass) {
         return this.carrier.getPriceForTravelClass(travelClass);
     }
+
+    public float bookingsRate(TravelClass travelClass) {
+        int availableSeats = this.getCarrier().getAvailableSeatsForTravelClass(travelClass);
+        int totalSeats = this.getCarrier().getTotalSeatsForTravelClass(travelClass);
+        int bookingsCount = totalSeats - availableSeats;
+        float rate = ((float)bookingsCount / totalSeats) * 100.0f;
+        System.out.println(rate);
+        return rate;
+    }
 }

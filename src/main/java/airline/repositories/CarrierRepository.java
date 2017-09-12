@@ -3,7 +3,7 @@ package airline.repositories;
 import airline.models.Carrier;
 import airline.models.CarrierType;
 import airline.models.TravelClass;
-import airline.models.TravelClassInfo;
+import airline.models.Seating;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -19,11 +19,11 @@ public class CarrierRepository {
     }
 
     private void createDefaultCarriers() {
-        Map<TravelClass, TravelClassInfo> mapOfSeatsAndPricePerClassForCarrier1 = new HashMap<>();
+        Map<TravelClass, Seating> mapOfSeatsAndPricePerClassForCarrier1 = new HashMap<>();
 
-        TravelClassInfo economyClassInfo = new TravelClassInfo(60, 60, 5000f);
-        TravelClassInfo businessClassInfo = new TravelClassInfo(20, 20, 8000f);
-        TravelClassInfo firstClassInfo = new TravelClassInfo(10, 10, 10000f);
+        Seating economyClassInfo = new Seating(60, 30, 5000f);
+        Seating businessClassInfo = new Seating(20, 20, 8000f);
+        Seating firstClassInfo = new Seating(10, 10, 10000f);
 
         mapOfSeatsAndPricePerClassForCarrier1.put(TravelClass.ECONOMY, economyClassInfo);
         mapOfSeatsAndPricePerClassForCarrier1.put(TravelClass.BUSINESS, businessClassInfo);
@@ -33,10 +33,10 @@ public class CarrierRepository {
         carriers.put(CarrierType.BOEING777, carrier1);
 
         /****************************************************************/
-        Map<TravelClass, TravelClassInfo> mapOfSeatsAndPricePerClassForCarrier2 = new HashMap<>();
+        Map<TravelClass, Seating> mapOfSeatsAndPricePerClassForCarrier2 = new HashMap<>();
 
-        economyClassInfo = new TravelClassInfo(60, 60, 4000f);
-        businessClassInfo = new TravelClassInfo(20, 20, 7000f);
+        economyClassInfo = new Seating(100, 30, 4000f);
+        businessClassInfo = new Seating(20, 20, 7000f);
 
         mapOfSeatsAndPricePerClassForCarrier2.put(TravelClass.ECONOMY, economyClassInfo);
         mapOfSeatsAndPricePerClassForCarrier2.put(TravelClass.BUSINESS, businessClassInfo);
@@ -46,9 +46,9 @@ public class CarrierRepository {
 
         /****************************************************************/
 
-        Map<TravelClass, TravelClassInfo> mapOfSeatsAndPricePerClassForCarrier3 = new HashMap<>();
+        Map<TravelClass, Seating> mapOfSeatsAndPricePerClassForCarrier3 = new HashMap<>();
 
-        economyClassInfo = new TravelClassInfo(60, 60, 3000f);
+        economyClassInfo = new Seating(60, 10, 3000f);
         mapOfSeatsAndPricePerClassForCarrier3.put(TravelClass.ECONOMY, economyClassInfo);
 
         Carrier carrier3 = new Carrier(CarrierType.AIRBUS319V2, mapOfSeatsAndPricePerClassForCarrier3);
@@ -60,8 +60,8 @@ public class CarrierRepository {
         for (Map.Entry <CarrierType, Carrier> entry : carriers.entrySet()){
             System.out.println(entry.getKey());
             Carrier carrier = entry.getValue();
-            Map<TravelClass, TravelClassInfo> mapOfSeatsAndPricePerClass = carrier.getMapOfSeatsAndPricePerClass();
-            for (Map.Entry <TravelClass, TravelClassInfo> travelClassEntry : mapOfSeatsAndPricePerClass.entrySet()) {
+            Map<TravelClass, Seating> mapOfSeatsAndPricePerClass = carrier.getMapOfSeatsAndPricePerClass();
+            for (Map.Entry <TravelClass, Seating> travelClassEntry : mapOfSeatsAndPricePerClass.entrySet()) {
                 System.out.println(travelClassEntry.getKey() + " - Seats: "  + travelClassEntry.getValue().getAvailableSeats() + ",  Price: " + travelClassEntry.getValue().getPrice());
             }
             System.out.println();
