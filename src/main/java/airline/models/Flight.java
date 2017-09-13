@@ -83,7 +83,7 @@ public class Flight {
         int totalSeats = this.getCarrier().getTotalSeatsForTravelClass(travelClass);
         int bookingsCount = totalSeats - availableSeats;
         float rate = ((float)bookingsCount / totalSeats) * 100.0f;
-        System.out.println(rate);
+        //System.out.println(rate);
         return rate;
     }
 }

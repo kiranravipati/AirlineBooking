@@ -52,8 +52,8 @@ public class FlightSearchService {
 
         for(Flight flight : flights) {
             FareCalculator fareCalculator = new FareCalculator(flight, searchCriteria);
-            totalPrice = fareCalculator.getBookingPrice();
             pricePerHead = fareCalculator.getPricePerHead();
+            totalPrice = pricePerHead * searchCriteria.getSeatsRequested();
 
             searchResult = new SearchResult(flight, pricePerHead, totalPrice);
             searchResults.add(searchResult);
