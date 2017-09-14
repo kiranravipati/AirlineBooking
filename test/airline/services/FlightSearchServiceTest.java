@@ -135,7 +135,6 @@ public class FlightSearchServiceTest {
         assertTrue(listOfFlights.isEmpty());
     }
 
-    //Using TDD for story 4
     @Test
     public void verifyBookingAmountForFirst40PercentIsSameAsBasePriceForEconomyClassOnAnyCarrier() {
         searchCriteria.setSource("HYD");

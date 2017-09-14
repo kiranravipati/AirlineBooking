@@ -21,7 +21,7 @@ public class CarrierRepository {
     private void createDefaultCarriers() {
         Map<TravelClass, Seating> mapOfSeatsAndPricePerClassForCarrier1 = new HashMap<>();
 
-        Seating economyClassInfo = new Seating(60, 30, 5000f);
+        Seating economyClassInfo = new Seating(100, 80, 5000f);
         Seating businessClassInfo = new Seating(20, 20, 8000f);
         Seating firstClassInfo = new Seating(10, 10, 10000f);
 

@@ -29,7 +29,7 @@ public class FareCalculator {
             case BUSINESS:
                 if ((flight.getDepartureDate().getDayOfWeek() == DayOfWeek.MONDAY) ||
                    (flight.getDepartureDate().getDayOfWeek() == DayOfWeek.FRIDAY) ||
-                           (flight.getDepartureDate().getDayOfWeek() == DayOfWeek.MONDAY)) {
+                        (flight.getDepartureDate().getDayOfWeek() == DayOfWeek.MONDAY)) {
                     return basePrice * 1.4f;
                 } else {
                     return basePrice;
