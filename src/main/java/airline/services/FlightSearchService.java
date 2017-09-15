@@ -23,7 +23,7 @@ public class FlightSearchService {
         List<SearchResult> searchResults = new ArrayList<>();
         SearchResult searchResult;
         float pricePerHead, totalPrice = 0.0f;
-        FareCalculator fareCalculator;
+        FareCalculator fareCalculator = new EconomyClassFareCalculator();
 
         for(Flight flight : flights) {
             switch (searchCriteria.getTravelClass()) {
@@ -37,10 +37,6 @@ public class FlightSearchService {
 
                 case FIRST:
                     fareCalculator = new FirstClassFareCalculator();
-                    break;
-
-                default:
-                    fareCalculator = new EconomyClassFareCalculator();
                     break;
             }
 
