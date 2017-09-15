@@ -60,10 +60,7 @@
 
                 <td>
                     <p th:text="'Departure Date: '"/>
-                    <input type="date" name="departureDateString" th:field="*{departureDateString}"/>
-                </td>
-                <td>
-
+                    <input type="date" name="departureDateString" th:attr="min=${today}" th:field="*{departureDateString}"/>
                 </td>
             </tr>
         </table>

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -23,17 +24,19 @@ public class FlightSearchController {
     public String getCities(Model model) {
         model.addAttribute("searchCriteria", new SearchCriteria());
         model.addAttribute("serviceClassList", TravelClass.values());
+        model.addAttribute("today", LocalDate.now().toString());
 
         return "flightSearch";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String getFlights(@ModelAttribute(value = "searchCriteria") SearchCriteria searchCriteria, Model model, BindingResult bindingResult) throws ParseException {
-        List<SearchResult> searchResults = flightSearchService.matchingFlightsWithFareDetails(searchCriteria);
+        List<SearchResult> searchResults = flightSearchService.searchResultsMatchingCriteria(searchCriteria);
         boolean resultsFound = searchResults.size() > 0;
         model.addAttribute("serviceClassList", TravelClass.values());
         model.addAttribute("resultsFound", resultsFound);
         model.addAttribute("searchResults", searchResults);
+        model.addAttribute("today", LocalDate.now().toString());
 
         return "flightSearch";
     }

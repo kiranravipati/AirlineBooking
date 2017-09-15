@@ -1,6 +1,9 @@
 package airline.models;
 
+import javax.naming.directory.SearchResult;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 
 public class Flight {
     private String flightNumber;
@@ -69,9 +72,9 @@ public class Flight {
         return carrier;
     }
 
-    public boolean isSeatAvailableForTravelClass(TravelClass travelClass, int seatsRequested) {
-        int availableSeats = this.getCarrier().getAvailableSeatsForTravelClass(travelClass);
-        return (availableSeats >= seatsRequested) ? true : false;
+    public boolean isSeatAvailableForTravelClass(SearchCriteria searchCriteria) {
+        int availableSeats = this.getCarrier().getAvailableSeatsForTravelClass(searchCriteria.getTravelClass());
+        return (availableSeats >= searchCriteria.getSeatsRequested()) ? true : false;
     }
 
     public float basePriceForTravelClass(TravelClass travelClass) {

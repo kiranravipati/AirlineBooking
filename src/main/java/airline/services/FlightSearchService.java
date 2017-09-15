@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -16,14 +17,52 @@ public class FlightSearchService {
     @Autowired
     FlightRepository flightRepository;
 
-    public List<Flight> search(SearchCriteria searchCriteria) throws ParseException {
+    public List<SearchResult> searchResultsMatchingCriteria(SearchCriteria searchCriteria) throws ParseException {
+        List<Flight> flights = findFlightsMatchingCriteria(searchCriteria);
+
+        List<SearchResult> searchResults = new ArrayList<>();
+        SearchResult searchResult;
+        float pricePerHead, totalPrice = 0.0f;
+        FareCalculator fareCalculator;
+
+        for(Flight flight : flights) {
+            switch (searchCriteria.getTravelClass()) {
+                case ECONOMY:
+                   fareCalculator = new EconomyClassFareCalculator();
+                   break;
+
+                case BUSINESS:
+                    fareCalculator = new BusinessClassFareCalculator();
+                    break;
+
+                case FIRST:
+                    fareCalculator = new FirstClassFareCalculator();
+                    break;
+
+                default:
+                    fareCalculator = new EconomyClassFareCalculator();
+                    break;
+            }
+
+            pricePerHead = fareCalculator.getPricePerHead(flight, searchCriteria);
+            totalPrice = pricePerHead * searchCriteria.getSeatsRequested();
+
+            searchResult = new SearchResult(flight, pricePerHead, totalPrice);
+            searchResults.add(searchResult);
+        }
+
+        return searchResults;
+    }
+
+
+    public List<Flight> findFlightsMatchingCriteria(SearchCriteria searchCriteria) throws ParseException {
         List<Flight> flights = flightRepository.getFlights();
 
         return flights.stream()
                 .filter(sourceMatches(searchCriteria.getSource()))
                 .filter(destinationMatches(searchCriteria.getDestination()))
-                .filter(departureDateMatches(searchCriteria.getDepartureDate()))
-                .filter(seatsAvailabilityMatches(searchCriteria.getTravelClass(), searchCriteria.getSeatsRequested()))
+                .filter(departureDateMatches(searchCriteria.getDepartureDate(), searchCriteria.getTravelClass()))
+                .filter(seatsAvailabilityMatches(searchCriteria))
                 .collect(Collectors.toList());
     }
 
@@ -35,30 +74,18 @@ public class FlightSearchService {
         return flight -> destination == null || flight.getDestination().equalsIgnoreCase(destination);
     }
 
-    private static Predicate<Flight> seatsAvailabilityMatches(TravelClass travelClass, int seatsRequested) {
-        return flight -> travelClass == null || flight.isSeatAvailableForTravelClass(travelClass, seatsRequested);
+
+    private static Predicate<Flight> seatsAvailabilityMatches(SearchCriteria searchCriteria) {
+        return flight -> searchCriteria.getTravelClass() == null || flight.isSeatAvailableForTravelClass(searchCriteria);
     }
 
-    private static Predicate<Flight> departureDateMatches(LocalDate searchCriteriaDate) {
-        return flight -> searchCriteriaDate == null || flight.getDepartureDate().equals(searchCriteriaDate);
-    }
+    private static Predicate<Flight> departureDateMatches(LocalDate searchCriteriaDate, TravelClass travelClass) {
+        Long diffInDays = ChronoUnit.DAYS.between(LocalDate.now(), searchCriteriaDate);
 
-    public List<SearchResult> matchingFlightsWithFareDetails(SearchCriteria searchCriteria) throws ParseException {
-        List<Flight> flights = search(searchCriteria);
-
-        List<SearchResult> searchResults = new ArrayList<>();
-        SearchResult searchResult;
-        float pricePerHead, totalPrice = 0.0f;
-
-        for(Flight flight : flights) {
-            FareCalculator fareCalculator = new FareCalculator(flight, searchCriteria);
-            pricePerHead = fareCalculator.getPricePerHead();
-            totalPrice = pricePerHead * searchCriteria.getSeatsRequested();
-
-            searchResult = new SearchResult(flight, pricePerHead, totalPrice);
-            searchResults.add(searchResult);
+        if ((travelClass == TravelClass.FIRST) && (diffInDays > 10)) {
+            return flight -> false;
         }
 
-        return searchResults;
+        return flight -> searchCriteriaDate == null || flight.getDepartureDate().equals(searchCriteriaDate);
     }
 }

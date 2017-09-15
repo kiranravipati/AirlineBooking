@@ -77,7 +77,7 @@ public class FlightSearchServiceTest {
         searchCriteria.setDestination("GOA");
         searchCriteria.setSeatsRequested(Optional.of(1));
 
-        List<Flight> actualFlightsList = flightSearchService.search(searchCriteria);
+        List<Flight> actualFlightsList = flightSearchService.findFlightsMatchingCriteria(searchCriteria);
         expectedFlightList = new ArrayList<Flight>(Arrays.asList(mockFlight1, mockFlight2));
 
         assertEquals(actualFlightsList, expectedFlightList);
@@ -90,7 +90,7 @@ public class FlightSearchServiceTest {
         searchCriteria.setDestination("GOA");
         searchCriteria.setDepartureDateString(LocalDate.now().toString());
 
-        List<Flight> actualFlightsList = flightSearchService.search(searchCriteria);
+        List<Flight> actualFlightsList = flightSearchService.findFlightsMatchingCriteria(searchCriteria);
         expectedFlightList = new ArrayList<Flight>(Arrays.asList(mockFlight1));
 
         assertEquals(expectedFlightList, actualFlightsList);
@@ -104,7 +104,7 @@ public class FlightSearchServiceTest {
         searchCriteria.setSeatsRequested(Optional.of(2));
         searchCriteria.setTravelClass(TravelClass.ECONOMY);
 
-        List<Flight> actualFlightsList= flightSearchService.search(searchCriteria);
+        List<Flight> actualFlightsList= flightSearchService.findFlightsMatchingCriteria(searchCriteria);
         expectedFlightList = new ArrayList<Flight>(Arrays.asList(mockFlight1, mockFlight2));
 
         assertEquals(expectedFlightList, actualFlightsList);
@@ -117,7 +117,7 @@ public class FlightSearchServiceTest {
         searchCriteria.setSeatsRequested(Optional.of(2));
         searchCriteria.setTravelClass(TravelClass.ECONOMY);
 
-        List<SearchResult> searchResults = flightSearchService.matchingFlightsWithFareDetails(searchCriteria);
+        List<SearchResult> searchResults = flightSearchService.searchResultsMatchingCriteria(searchCriteria);
         Predicate <SearchResult> flightWithNumber = searchResult -> (searchResult.getFlightNumber().equals(mockFlight1.getFlightNumber()));
         Optional <SearchResult> searchResult = searchResults.stream().filter(flightWithNumber).findFirst();
         float actualBookingAmount = searchResult.get().getTotalPrice();
@@ -131,7 +131,7 @@ public class FlightSearchServiceTest {
         searchCriteria.setTravelClass(TravelClass.BUSINESS);
         searchCriteria.setSeatsRequested(Optional.of(2));
 
-        List<Flight> listOfFlights = flightSearchService.search(searchCriteria);
+        List<Flight> listOfFlights = flightSearchService.findFlightsMatchingCriteria(searchCriteria);
         assertTrue(listOfFlights.isEmpty());
     }
 
